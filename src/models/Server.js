@@ -2,20 +2,22 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { PORT } from "../configs/config.js";
-import productsRouter from "../routes/products.routes.js";
-import { db } from "../database/connection.js";
+import { databaseConnection } from "../database/connection.js";
+import productsRoutes from "../routes/products.routes.js";
 
 class Server {
   constructor() {
     this.app = express();
     this.port = PORT;
-    this.databaseConnection();
+
+    this.database();
+
     this.middlewares();
     this.routes();
   }
 
-  async databaseConnection() {
-    await db();
+  async database() {
+    await databaseConnection();
   }
 
   middlewares() {
@@ -24,12 +26,12 @@ class Server {
     this.app.use(express.json());
   }
   routes() {
-    this.app.use("/api", productsRouter);
+    this.app.use("/api", productsRoutes);
   }
 
   initialization() {
-    this.app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+    this.app.listen(this.port, () => {
+      console.log(`Server running on port ${this.port}`);
     });
   }
 }

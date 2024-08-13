@@ -1,13 +1,13 @@
 import Product from "../models/Product.js";
 
-export class ProductService {
+class ProductService {
   constructor() {}
 
-  async findAllProductsSvc() {
+  async findAll() {
     return await Product.find();
   }
 
-  async createProductSvc(product) {
+  async create(product) {
     return await Product.create(product);
   }
 }

@@ -1,7 +1,7 @@
 import { connect } from "mongoose";
 import { MONGO_URI } from "../configs/config.js";
 
-export const db = async () => {
+export const databaseConnection = async () => {
   try {
     await connect(MONGO_URI);
     console.log("Database connected");

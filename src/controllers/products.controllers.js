@@ -1,39 +1,47 @@
-import { ProductService } from "../services/products.services.js";
-const productService = new ProductService();
-export const getProductsCtrl = async (req, res) => {
+import ProductsServices from "../services/products.services.js";
+
+export const getProducts = async (req, res) => {
   try {
-    const products = await productService.findAllProductsSvc();
+    const products = await ProductsServices.findAll();
 
     if (!products) {
-      return res.status(404).json({ message: "Products not found" });
+      throw {
+        statusCode: 404,
+        status: "Not Found",
+        message: "No se han encontrado productos",
+      };
     }
 
     return res.json(products);
   } catch (error) {
-    return res.status(500).json({
-      message: "Error retrieving products",
-      error: error.message,
+    return res.status(error.status || 500).json({
+      message: error.message || "Error retrieving products",
+      statud: error.status,
     });
   }
 };
 
-export const createProductCtrl = async (req, res) => {
+export const createProduct = async (req, res) => {
   try {
-    await productsServices.createProductSvc(req.body);
-    return res.json({ message: "Product created" });
+    const product = await ProductsServices.create(req.body);
+    return res.json({ product });
   } catch (error) {
-    return res.status(500).json({
-      message: "Error creating product",
-      error: error.message,
+    return res.status(error.status || 500).json({
+      message: error.message || "Error retrieving products",
+      statud: error.status,
     });
   }
 };
 
-export const getProductCtrl = (req, res) => {
-  try {
-  } catch (error) {}
-};
+// export const getProductById = (req, res) => {
+//   try {
+//   } catch (error) {}
+// };
 
-export const updateProductCtrl = (req, res) => {
-  return res.json({ message: "Update Product" });
-};
+// export const updateProduct = (req, res) => {
+//   return res.json({ message: "Update Product" });
+// };
+
+// export const deleteProduct = async (req, res) => {
+//   return res.json({ message: "Producto Eliminado" });
+// };
