@@ -1,6 +1,6 @@
 import ProductsServices from "../services/products.services.js";
 
-export const getProducts = async (req, res) => {
+export const get = async (req, res) => {
   try {
     const products = await ProductsServices.findAll();
 
@@ -21,23 +21,48 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const createProduct = async (req, res) => {
+export const create = async (req, res) => {
   try {
     const product = await ProductsServices.create(req.body);
     return res.json({ product });
   } catch (error) {
-    return res.status(error.status || 500).json({
+    return res.status(500).json({
       message: error.message || "Error retrieving products",
       statud: error.status,
     });
   }
 };
 
-// export const getProductById = (req, res) => {
-//   try {
-//   } catch (error) {}
-// };
+export const getById = async (req, res) => {
+  try {
+    const product = await ProductsServices.findById(req.params.id);
+    if (!product) {
+      throw {
+        statusCode: 404,
+        status: "Not Found",
+        message: "Producto no encontrado",
+      };
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || "Error retrieving products",
+      statud: error.status,
+    });
+  }
+};
 
+export const seed = async (req, res) => {
+  try {
+    const products = await ProductsServices.seed();
+    return res.json(products);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || "Error retrieving products",
+      statud: error.status,
+    });
+  }
+};
 // export const updateProduct = (req, res) => {
 //   return res.json({ message: "Update Product" });
 // };
