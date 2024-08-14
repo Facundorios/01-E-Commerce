@@ -1,5 +1,16 @@
 import ProductsServices from "../services/products.services.js";
 
+export const seed = async (req, res) => {
+  try {
+    const products = await ProductsServices.seed();
+    return res.json(products);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || "Error retrieving products",
+      status: error.status,
+    });
+  }
+};
 export const get = async (req, res) => {
   try {
     const products = await ProductsServices.findAll();
@@ -16,23 +27,10 @@ export const get = async (req, res) => {
   } catch (error) {
     return res.status(error.status || 500).json({
       message: error.message || "Error retrieving products",
-      statud: error.status,
+      status: error.status,
     });
   }
 };
-
-export const create = async (req, res) => {
-  try {
-    const product = await ProductsServices.create(req.body);
-    return res.json({ product });
-  } catch (error) {
-    return res.status(500).json({
-      message: error.message || "Error retrieving products",
-      statud: error.status,
-    });
-  }
-};
-
 export const getById = async (req, res) => {
   try {
     const product = await ProductsServices.findById(req.params.id);
@@ -47,26 +45,34 @@ export const getById = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: error.message || "Error retrieving products",
-      statud: error.status,
+      status: error.status,
     });
   }
 };
-
-export const seed = async (req, res) => {
+export const create = async (req, res) => {
   try {
-    const products = await ProductsServices.seed();
-    return res.json(products);
+    const product = await ProductsServices.create(req.body);
+    return res.json({ product });
   } catch (error) {
     return res.status(500).json({
-      message: error.message || "Error retrieving products",
-      statud: error.status,
+      message: error.message || "Ha habido un error en el sistema.",
+      status: error.status,
     });
   }
 };
+export const remove = async (req, res) => {
+  try {
+    const product = await ProductsServices.delete(req.params.id);
+    if (!product) throw { statusCode: 404, message: "Producto no encontrado" };
+    return res.json({ message: "Producto eliminado correctamente" });
+  } catch (error) {
+    return res.status(error.status || 500).json({
+      message: error.message || "Ha habido un error en el sistema.",
+      status: error.status,
+    });
+  }
+};
+
 // export const updateProduct = (req, res) => {
 //   return res.json({ message: "Update Product" });
-// };
-
-// export const deleteProduct = async (req, res) => {
-//   return res.json({ message: "Producto Eliminado" });
 // };

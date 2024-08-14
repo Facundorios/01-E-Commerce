@@ -4,6 +4,10 @@ import Product from "../models/Product.js";
 class ProductService {
   constructor() {}
 
+  async seed() {
+    return await Product.insertMany(seed);
+  }
+
   async findAll() {
     return await Product.find();
   }
@@ -18,10 +22,6 @@ class ProductService {
 
   async delete(id) {
     return await Product.findByIdAndDelete(id);
-  }
-
-  async seed() {
-    return await Product.insertMany(seed);
   }
 }
 
