@@ -15,10 +15,10 @@ import { validate } from "../middlewares/express-validator.js";
 
 const productsRoutes = Router();
 
-productsRoutes.post("/product/create", createSchema, validate, create);
 productsRoutes.get("/product/seed", seed);
 productsRoutes.get("/products", get);
 productsRoutes.get("/product/:id", getById);
+productsRoutes.post("/product/create", createSchema, validate, create);
 productsRoutes.delete("/product/delete/:id", removeSchema, validate, remove);
 
 export default productsRoutes;

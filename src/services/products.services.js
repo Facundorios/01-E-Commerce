@@ -2,7 +2,7 @@ import { seed } from "../seed/product.seed.js";
 import Product from "../models/Product.js";
 
 class ProductService {
-  constructor() {}
+  // constructor() {}
 
   async seed() {
     return await Product.insertMany(seed);
