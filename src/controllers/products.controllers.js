@@ -3,7 +3,6 @@ import productsServices from "../services/products.services.js";
 export const seed = async (req, res) => {
   try {
     const products = await productsServices.seed();
-    console.log("fabi hizo cagada");
     return res.json(products);
   } catch (error) {
     return res.status(500).json({
@@ -14,7 +13,7 @@ export const seed = async (req, res) => {
 };
 export const get = async (req, res) => {
   try {
-    const products = await ProductService.findAll();
+    const products = await productsServices.findAll();
 
     if (!products) {
       throw {
@@ -34,7 +33,7 @@ export const get = async (req, res) => {
 };
 export const getById = async (req, res) => {
   try {
-    const product = await ProductService.findById(req.params.id);
+    const product = await productsServices.findById(req.params.id);
     if (!product) {
       throw {
         statusCode: 404,
@@ -52,7 +51,7 @@ export const getById = async (req, res) => {
 };
 export const create = async (req, res) => {
   try {
-    const product = await ProductService.create(req.body);
+    const product = await productsServices.create(req.body);
     return res.json({ product });
   } catch (error) {
     return res.status(500).json({
@@ -63,7 +62,7 @@ export const create = async (req, res) => {
 };
 export const remove = async (req, res) => {
   try {
-    const product = await ProductService.delete(req.params.id);
+    const product = await productsServices.delete(req.params.id);
     if (!product) throw { statusCode: 404, message: "Producto no encontrado" };
     return res.json({ message: "Producto eliminado correctamente" });
   } catch (error) {
