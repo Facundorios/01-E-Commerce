@@ -1,10 +1,10 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { PORT } from "../configs/config.js";
-import { databaseConnection } from "../database/connection.js";
-import productsRoutes from "../routes/products.routes.js";
-import userRoutes from "../routes/users.routes.js";
+import { PORT } from "./src/configs/config.js";
+import { databaseConnection } from "./src/database/connection.js";
+import productsRoutes from "./src/routes/products.routes.js";
+import userRoutes from "./src/routes/users.routes.js";
 class Server {
   constructor() {
     this.app = express();

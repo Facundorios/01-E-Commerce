@@ -1,4 +1,4 @@
-import { body, checkSchema, param } from "express-validator";
+import { checkSchema, param } from "express-validator";
 
 export const createSchema = checkSchema({
   email: {
@@ -27,11 +27,12 @@ export const createSchema = checkSchema({
       errorMessage: "El rol es requerido.",
     },
     isIn: {
-      options: [["admin", "user", "client", "seller"]],
-      errorMessage: "El rol debe ser admin, user, client o seller.",
+      options: [["client", "seller"]],
+      errorMessage: "El rol debe ser client o seller.",
     },
   },
 });
+
 export const removeSchema = [
   param("id")
     .exists()
@@ -39,3 +40,21 @@ export const removeSchema = [
     .isMongoId()
     .withMessage("El id no es válido."),
 ];
+
+export const authSchema = checkSchema({
+  email: {
+    in: ["body"],
+    exists: {
+      errorMessage: "Ingrese el email.",
+    },
+    isEmail: {
+      errorMessage: "El email no es válido.",
+    },
+  },
+  password: {
+    in: ["body"],
+    exists: {
+      errorMessage: "Ingrese la contraseña.",
+    },
+  },
+});

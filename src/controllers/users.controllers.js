@@ -2,7 +2,15 @@ import { default as UserService } from "../services/user.services.js";
 
 export const get = async (req, res) => {
   try {
-    const users = await UserService.find();
+    let users = await UserService.find();
+    users = users.map((user) => {
+      return {
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        role: user.role,
+      };
+    });
     return res.json(users);
   } catch (error) {
     return { status: error.statusCode, message: error.message };
@@ -21,8 +29,15 @@ export const getById = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const user = await UserService.create(req.body);
-    console.log(user);
     return res.json(user);
+  } catch (error) {
+    return { error: error };
+  }
+};
+
+export const login = async (req, res) => {
+  try {
+    const user = await UserService.login(req.body);
   } catch (error) {
     return { error: error };
   }
