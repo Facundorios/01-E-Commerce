@@ -1,4 +1,4 @@
-import { UserService } from "../services/index.js";
+import { default as UserService } from "../services/user.services.js";
 
 export const get = async (req, res) => {
   try {
@@ -21,6 +21,7 @@ export const getById = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const user = await UserService.create(req.body);
+    console.log(user);
     return res.json(user);
   } catch (error) {
     return { error: error };

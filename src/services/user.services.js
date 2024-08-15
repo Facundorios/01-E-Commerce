@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
 
 class UserService {
   async find() {
@@ -27,7 +28,8 @@ class UserService {
     try {
       const exists = await User.findOne({ email: user.email });
       if (exists) throw new Error("Usuario con este email ya existe");
-      return User.create(user);
+      const password = await bcrypt.hash(user.password, 10);
+      return await User.create({ ...user, password });
     } catch (error) {
       return {
         status: error.statusCode,
