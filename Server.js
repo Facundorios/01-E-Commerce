@@ -26,8 +26,8 @@ class Server {
     this.app.use(express.json());
   }
   routes() {
-    this.app.use("/api", productsRoutes);
-    this.app.use("/api", userRoutes);
+    this.app.use("/api/product", productsRoutes);
+    this.app.use("/api/auth", userRoutes);
   }
 
   initialization() {

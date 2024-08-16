@@ -13,12 +13,12 @@ import {
 } from "../middlewares/validations/products.schemas.js";
 import { validate } from "../middlewares/express-validator.js";
 
-const productsRoutes = Router();
+const productRoutes = Router();
 
-productsRoutes.get("/product/seed", seed);
-productsRoutes.get("/products", get);
-productsRoutes.get("/product/:id", getById);
-productsRoutes.post("/product/create", createSchema, validate, create);
-productsRoutes.delete("/product/delete/:id", removeSchema, validate, remove);
+productRoutes.get("/seed", seed);
+productRoutes.get("/all", get);
+productRoutes.get("/:id", getById);
+productRoutes.post("/create", createSchema, validate, create);
+productRoutes.delete("/delete/:id", removeSchema, validate, remove);
 
-export default productsRoutes;
+export default productRoutes;
