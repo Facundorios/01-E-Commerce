@@ -8,7 +8,7 @@ class ProductService {
     return await Product.insertMany(seed);
   }
 
-  async findAll() {
+  async find() {
     return await Product.find();
   }
 

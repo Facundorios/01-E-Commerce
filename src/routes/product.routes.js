@@ -5,7 +5,7 @@ import {
   getById,
   create,
   remove,
-} from "../controllers/products.controllers.js";
+} from "../controllers/product.controllers.js";
 
 import {
   createSchema,

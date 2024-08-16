@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { register, login } from "../controllers/users.controllers.js";
+import { register, login } from "../controllers/user.controllers.js";
 
 import {
   authSchema,

@@ -16,7 +16,7 @@ class UserService {
         { id: createUser.id, role: createUser.role },
         JWT_SECRET
       );
-      return { message: `Bienvenido, ${createUser.name}`, token };
+      return { message: `Bienvenido, ${createUser.name}` };
     } catch (error) {
       return {
         status: error.statusCode,
@@ -31,7 +31,6 @@ class UserService {
       if (!exist) throw new Error("Usuario no encontrado");
 
       const valid = await bcrypt.compare(user.password, exist.password);
-
       if (!valid) throw new Error("Contraseña incorrecta.");
 
       const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET);

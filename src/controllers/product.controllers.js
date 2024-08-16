@@ -1,4 +1,4 @@
-import productsServices from "../services/products.services.js";
+import productsServices from "../services/product.services.js";
 
 export const seed = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ export const seed = async (req, res) => {
 };
 export const get = async (req, res) => {
   try {
-    const products = await productsServices.findAll();
+    const products = await productsServices.find();
 
     if (!products) {
       throw {
