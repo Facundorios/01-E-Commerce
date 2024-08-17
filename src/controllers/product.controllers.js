@@ -52,7 +52,7 @@ export const getById = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const product = await productsServices.create(req.body);
-    return res.json({ product });
+    return res.json({ message: "Producto creado correctamente" });
   } catch (error) {
     return res.status(500).json({
       message: error.message || "Ha habido un error en el sistema.",

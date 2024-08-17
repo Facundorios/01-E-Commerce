@@ -5,7 +5,7 @@ import { register, login } from "../controllers/user.controllers.js";
 import {
   authSchema,
   createSchema,
-} from "../middlewares/validations/users.schemas.js";
+} from "../middlewares/validations/schemas/users.schemas.js";
 
 import { validate } from "../middlewares/express-validator.js";
 

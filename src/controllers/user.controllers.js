@@ -12,6 +12,8 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const user = await UserService.login(req.body);
+    if (!user) res.json({ message: "Usuario no encontrado." });
+
     res.status(200).json(user);
   } catch (error) {
     return { error: error };

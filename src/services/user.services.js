@@ -16,6 +16,8 @@ class UserService {
         { id: createUser.id, role: createUser.role },
         JWT_SECRET
       );
+      console.log(token);
+
       return { message: `Bienvenido, ${createUser.name}` };
     } catch (error) {
       return {
@@ -33,7 +35,9 @@ class UserService {
       const valid = await bcrypt.compare(user.password, exist.password);
       if (!valid) throw new Error("Contraseña incorrecta.");
 
-      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET);
+      const token = jwt.sign({ id: exist.id, role: exist.role }, JWT_SECRET);
+      console.log(token);
+
       return { message: `Bienvenido, ${exist.name}` };
     } catch (error) {
       return {

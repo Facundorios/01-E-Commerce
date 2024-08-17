@@ -10,15 +10,16 @@ import {
 import {
   createSchema,
   removeSchema,
-} from "../middlewares/validations/products.schemas.js";
+} from "../middlewares/validations/schemas/products.schemas.js";
 import { validate } from "../middlewares/express-validator.js";
+import { seller, auth } from "../middlewares/validations/auth/authorization.js";
 
 const productRoutes = Router();
 
 productRoutes.get("/seed", seed);
 productRoutes.get("/all", get);
 productRoutes.get("/:id", getById);
-productRoutes.post("/create", createSchema, validate, create);
+productRoutes.post("/create", createSchema, validate, auth, seller, create);
 productRoutes.delete("/delete/:id", removeSchema, validate, remove);
 
 export default productRoutes;
