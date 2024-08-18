@@ -3,6 +3,8 @@ import { JWT_SECRET } from "../../../configs/config.js";
 
 export const auth = async (req, res, next) => {
   let token = req.headers.authorization;
+  token = token.split(" ")[1];
+
   if (!token) {
     return res
       .status(401)
@@ -25,4 +27,16 @@ export const seller = async (req, res, next) => {
   }
 
   next();
+};
+
+export const admin = async (req, res, next) => {
+  let token = req.headers.authorization;
+  token = token.split(" ")[1];
+
+  let verif = jwt.verify(token, JWT_SECRET);
+  if (verif.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "No tienes el rol requerido para esta acción." });
+  }
 };
