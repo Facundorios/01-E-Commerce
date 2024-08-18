@@ -2,28 +2,40 @@ import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
 
 class CartService {
-  async get() {
-    return await Cart.find();
+  async get(userId) {
+    const cart = await Cart.findOne({ userId }).populate("products.productId");
+
+    const products = cart.products.map((product) => {
+      const { name, price } = product.productId;
+      return {
+        name,
+        price,
+        quantity: product.quantity,
+      };
+    });
+
+    console.log({ message: "My cart products", products });
   }
 
-  async addToCart(user, productId, quantity) {
-    const cart = await Cart.findOne({ userId: user._id });
-    const product = await Product.findById(productId);
+  async add(userId, productId, quantity) {
+    const cart = await Cart.findOne({ userId });
 
-    if (!product) res.status(404).json({ message: "Producto no encontrado." });
-
-    if (quantity > product.stock)
-      res.status(400).json({ message: "No hay suficiente stock" });
-
-    const productInCart = cart.products.find((p) => p.productId == productId);
-    if (productInCart) {
-      productInCart.quantity += quantity;
-    } else {
-      cart.products.push({ productId, quantity });
+    if (!cart) {
+      const newCart = new Cart({
+        userId: userId,
+        products: [{ productId, quantity }],
+      });
+      return await newCart.save();
     }
 
-    await cart.save();
-    return { cart, product };
+    const product = cart.products.find(
+      (product) => product.productId == productId
+    );
+    if (product) product.quantity += quantity;
+    cart.products.push({ productId, quantity });
+
+    console.log({ userId, productId, quantity });
+    return await cart.save();
   }
 }
 

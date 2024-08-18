@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { addToCart } from "../controllers/cart.controllers.js";
+
+import { add, get } from "../controllers/cart.controllers.js";
+import { auth } from "../middlewares/validations/auth/authorization.js";
 
 const cartRoutes = Router();
 
-cartRoutes.post("/add", addToCart);
-cartRoutes.get("/my-cart");
+cartRoutes.post("/add-product", auth, add);
+cartRoutes.get("/my-cart", auth, get);
 
 export default cartRoutes;
