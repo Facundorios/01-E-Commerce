@@ -26,9 +26,8 @@ export const add = async (req, res) => {
     const userId = jwt.verify(token, JWT_SECRET).id;
 
     const { productId, quantity } = req.body;
-
-    console.log({ userId, productId, quantity });
     await cartServices.add(userId, productId, quantity);
+
     return res.status(200).json({ message: "Producto añadido al carrito" });
   } catch (error) {
     return res.status(500).json({

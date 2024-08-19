@@ -1,20 +1,26 @@
 import Cart from "../models/Cart.js";
-import Product from "../models/Product.js";
 
 class CartService {
   async get(userId) {
     const cart = await Cart.findOne({ userId }).populate("products.productId");
 
-    const products = cart.products.map((product) => {
-      const { name, price } = product.productId;
-      return {
-        name,
-        price,
-        quantity: product.quantity,
-      };
+    const productMap = {};
+    cart.products.forEach((product) => {
+      const id = product.productId._id.toString();
+      if (productMap[id]) productMap[id].quantity + product.quantity;
+      else {
+        productMap[id] = {
+          quantity: product.quantity,
+          product: {
+            name: product.productId.name,
+            price: product.productId.price,
+          },
+        };
+      }
     });
 
-    console.log({ message: "My cart products", products });
+    const products = Object.values(productMap);
+    return { message: "My cart products", products };
   }
 
   async add(userId, productId, quantity) {
