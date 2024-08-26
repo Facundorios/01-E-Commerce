@@ -4,8 +4,11 @@ import Product from "../models/Product.js";
 class ProductService {
   // constructor() {}
 
-  async seed() {
-    return await Product.insertMany(seed);
+  async seed(userId) {
+    const productsId = seed.map((product) => {
+      return { ...product, sellerId: userId };
+    });
+    return await Product.insertMany(productsId);
   }
 
   async find() {

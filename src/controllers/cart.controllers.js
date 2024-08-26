@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 
-import { JWT_SECRET } from "../configs/config.js";
 import cartServices from "../services/cart.services.js";
+import { JWT_SECRET } from "../configs/env/config.js";
 
 export const get = async (req, res) => {
   try {
-    //Extraemos el token y  los parametros
+    //Extraemos el token y los parametros
     const token = req.headers.authorization.split(" ")[1];
     const id = jwt.verify(token, JWT_SECRET).id;
 

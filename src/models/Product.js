@@ -7,6 +7,10 @@ const productSchema = new Schema(
     category: String,
     description: String,
     stock: Number,
+    sellerId: {
+      type: Schema.Types.ObjectId,
+      ref: "users",
+    },
   },
   {
     timestamps: true,

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../../configs/config.js";
+import { JWT_SECRET } from "../../../configs/env/config.js";
 
 export const auth = async (req, res, next) => {
   let token = req.headers.authorization;
@@ -25,7 +25,6 @@ export const seller = async (req, res, next) => {
       .status(403)
       .json({ message: "No tienes el rol requerido para esta acción." });
   }
-
   next();
 };
 
@@ -39,4 +38,5 @@ export const admin = async (req, res, next) => {
       .status(403)
       .json({ message: "No tienes el rol requerido para esta acción." });
   }
+  next();
 };

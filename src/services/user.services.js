@@ -2,7 +2,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User.js";
-import { JWT_SECRET } from "../configs/config.js";
+import { JWT_SECRET } from "../configs/env/config.js";
+
 class UserService {
   async register(user) {
     try {

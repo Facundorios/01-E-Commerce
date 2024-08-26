@@ -1,8 +1,17 @@
+import jwt from "jsonwebtoken";
+
+import { JWT_SECRET } from "../configs/env/config.js";
 import productsServices from "../services/product.services.js";
 
 export const seed = async (req, res) => {
   try {
-    const products = await productsServices.seed();
+    if (!req.headers.authorization)
+      throw { statusCode: 401, message: "Unauthorized" };
+
+    const token = req.headers.authorization.split(" ")[1];
+    const id = jwt.verify(token, JWT_SECRET).id;
+
+    const products = await productsServices.seed(id);
     return res.json(products);
   } catch (error) {
     return res.status(500).json({

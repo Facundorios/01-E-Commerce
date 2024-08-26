@@ -4,7 +4,8 @@ import morgan from "morgan";
 import cors from "cors";
 
 //Configs
-import { PORT } from "./src/configs/config.js";
+
+import { PORT } from "./src/configs/env/config.js";
 import { databaseConnection } from "./src/database/connection.js";
 
 //Routes
