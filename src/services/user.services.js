@@ -11,15 +11,10 @@ class UserService {
       if (exist) throw new Error("Usuario con este email ya existe");
 
       const password = await bcrypt.hash(user.password, 10);
-      const createUser = await User.create({ ...user, password });
+      const create = await User.create({ ...user, password });
 
-      const token = jwt.sign(
-        { id: createUser.id, role: createUser.role },
-        JWT_SECRET
-      );
-      console.log(token);
-
-      return { message: `Bienvenido, ${createUser.name}` };
+      const token = jwt.sign({ id: create.id, role: create.role }, JWT_SECRET);
+      return { message: `Bienvenido, ${create.name}`, token };
     } catch (error) {
       return {
         status: error.statusCode,
@@ -37,9 +32,7 @@ class UserService {
       if (!valid) throw new Error("Contraseña incorrecta.");
 
       const token = jwt.sign({ id: exist.id, role: exist.role }, JWT_SECRET);
-      console.log(token);
-
-      return { message: `Bienvenido, ${exist.name}` };
+      return { message: `Bienvenido, ${exist.name}`, token };
     } catch (error) {
       return {
         status: error.statusCode,
