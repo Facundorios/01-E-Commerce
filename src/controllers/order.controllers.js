@@ -22,7 +22,6 @@ export const create = async (req, res) => {
 
   const userId = jwt.verify(token, JWT_SECRET).id;
   const { cartId, order } = req.body;
-
   try {
     let create = await orderServices.create(userId, cartId, order);
     res.status(201).json({ message: "Orden creada", create });
