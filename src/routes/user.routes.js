@@ -11,7 +11,6 @@ import { validate } from "../middlewares/express-validator.js";
 
 const userRoutes = Router();
 
-//Auth routes
 userRoutes.post("/signup", createSchema, validate, register);
 userRoutes.post("/signin", authSchema, validate, login);
 

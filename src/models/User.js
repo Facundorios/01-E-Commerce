@@ -4,9 +4,17 @@ const userSchema = new Schema(
   {
     name: String,
     surname: String,
-    email: String,
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     password: String,
-    role: String,
+    role: {
+      type: String,
+      enum: ["admin", "client", "seller"],
+      default: "client",
+    },
   },
   {
     timestamps: true,

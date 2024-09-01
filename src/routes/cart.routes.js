@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { add, get } from "../controllers/cart.controllers.js";
-import { auth } from "../middlewares/validations/auth/authorization.js";
+import { auth } from "../middlewares/validations/auth/authentication.js";
 
 const cartRoutes = Router();
 

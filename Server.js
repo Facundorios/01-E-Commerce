@@ -9,9 +9,10 @@ import { PORT } from "./src/configs/env/config.js";
 import { databaseConnection } from "./src/database/connection.js";
 
 //Routes
+import cartRoutes from "./src/routes/cart.routes.js";
 import productsRoutes from "./src/routes/product.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
-import cartRoutes from "./src/routes/cart.routes.js";
+import orderRoutes from "./src/routes/order.routes.js";
 
 //Main class
 class Server {
@@ -38,6 +39,7 @@ class Server {
     this.app.use("/api/product", productsRoutes);
     this.app.use("/api/auth", userRoutes);
     this.app.use("/api/cart", cartRoutes);
+    this.app.use("/api/order", orderRoutes);
   }
 
   initialization() {
