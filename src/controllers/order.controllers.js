@@ -10,7 +10,7 @@ export const getAll = async (req, res) => {
 
   try {
     let orders = await orderServices.findAll(userId);
-    res.status(200).json({ message: "Estas son tus ordenes", orders });
+    res.status(200).json({ message: "Here are yours orders:", orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -23,7 +23,7 @@ export const create = async (req, res) => {
   const userId = jwt.verify(token, JWT_SECRET).id;
   const { cartId, order } = req.body;
   try {
-    let create = await orderServices.create(userId, cartId, order);
+    let create = await orderServices.create(order, userId, cartId);
     res.status(201).json({ message: "Orden creada", create });
   } catch (error) {
     res.status(500).json({ message: error.message });

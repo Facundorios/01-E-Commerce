@@ -1,11 +1,16 @@
 import Order from "../models/Order.js";
+import User from "../models/User.js";
 
 class OrderService {
   async findAll(userId) {
-    return await Order.find({ userId }).sort({ createdAt: -1 });
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("Usuario no encontrado");
+    }
+    return await Order.find({ userId });
   }
 
-  async create(userId, cartId, order) {
+  async create(order, userId, cartId) {
     return await Order.create({ ...order, userId, cartId });
   }
 }
