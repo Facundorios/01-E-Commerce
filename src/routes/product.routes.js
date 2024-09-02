@@ -11,8 +11,8 @@ import {
   createSchema,
   removeSchema,
 } from "../middlewares/validations/schemas/products.schemas.js";
-
 import { validate } from "../middlewares/express-validator.js";
+
 import { auth } from "../middlewares/validations/auth/authentication.js";
 import { role } from "../middlewares/validations/auth/authorization.js";
 
