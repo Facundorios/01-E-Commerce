@@ -11,7 +11,7 @@
 
 ## Descripción
 
-**E-Commerce**: Este repositorio contiene un pequeño pero simple desarrollo backend de un e-commerce, utilizando Clases y Programacion Orientada a Objetos (POO)
+**E-Commerce**: Este repositorio contiene un pequeño y simple desarrollo backend de un e-commerce, utilizando Clases y Programacion Orientada a Objetos (POO)
 
 ## Instalación de librerias.
 
