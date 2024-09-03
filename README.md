@@ -36,3 +36,7 @@ npm run start:dev
 ```
 
 # Funcionalidades desarrolladas.
+
+En este proyecto de backend, de utilizan las autenticación y autorizacion de usuarios mediante roles. Por lo que requeriras de un token (Estandar bearer) para realizar determinadas peticiones, ya seas un cliente, vendedor o admin.
+
+Para ver las funcionalidades creadas, vease el archivo "REQUEST.MD"

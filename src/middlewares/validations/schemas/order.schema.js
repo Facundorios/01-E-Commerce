@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 export const createSchema = [
   body("cartId")
@@ -34,4 +34,20 @@ export const createSchema = [
     .withMessage("El país es requerido.")
     .isString()
     .withMessage("El país debe ser una cadena de texto."),
+];
+
+export const updateSchema = [
+  param("orderId")
+    .exists()
+    .withMessage("El id de la orden es requerido.")
+    .isMongoId()
+    .withMessage("El id de la orden no es válido."),
+  body("status")
+    .exists()
+    .withMessage("El estado es requerido.")
+    .isString()
+    .isIn(["pending", "shipped", "delivered", "cancelled"])
+    .withMessage(
+      "El estado no es válido, debe ser uno de estos: pending, approved, rejected, cancelled."
+    ),
 ];

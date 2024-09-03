@@ -2,7 +2,11 @@ import Order from "../models/Order.js";
 import User from "../models/User.js";
 
 class OrderService {
-  async findAll(userId) {
+  async findAll() {
+    return await Order.find();
+  }
+
+  async findByUser(userId) {
     const user = await User.findById(userId);
     if (!user) {
       throw new Error("Usuario no encontrado");
@@ -12,6 +16,10 @@ class OrderService {
 
   async create(order, userId, cartId) {
     return await Order.create({ ...order, userId, cartId });
+  }
+
+  async patch(orderId, status) {
+    return await Order.findByIdAndUpdate(orderId, { status });
   }
 }
 

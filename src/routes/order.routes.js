@@ -1,7 +1,15 @@
 import { Router } from "express";
-import { create, getAll } from "../controllers/order.controllers.js";
+import {
+  create,
+  getAllByUser,
+  getAll,
+  update,
+} from "../controllers/order.controllers.js";
 
-import { createSchema } from "../middlewares/validations/schemas/order.schema.js";
+import {
+  createSchema,
+  updateSchema,
+} from "../middlewares/validations/schemas/order.schema.js";
 import { validate } from "../middlewares/express-validator.js";
 
 import { auth } from "../middlewares/validations/auth/authentication.js";
@@ -9,7 +17,7 @@ import { role } from "../middlewares/validations/auth/authorization.js";
 
 const orderRouter = Router();
 
-orderRouter.get("/my-orders", auth, role("client"), getAll);
+orderRouter.get("/my-orders", auth, role("client"), getAllByUser);
 orderRouter.post(
   "/create",
   auth,
@@ -17,6 +25,15 @@ orderRouter.post(
   createSchema,
   validate,
   create
+);
+orderRouter.get("/all-orders", auth, role("admin"), getAll);
+orderRouter.patch(
+  "/update/:orderId",
+  auth,
+  role("admin"),
+  updateSchema,
+  validate,
+  update
 );
 
 export default orderRouter;
